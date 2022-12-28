@@ -14,7 +14,7 @@ def read_csv_file(path):
     header = []
     rows = []
     with open(path, 'r') as file:
-        info("Reading file...")
+        print("Reading file...")
         csvreader = csv.reader(file)
         headers = next(csvreader)
         for row in csvreader:
@@ -25,5 +25,5 @@ def read_csv_file(path):
                     new_dict[header] = row[count]
                     count = count + 1
                 rows.append(new_dict)
-        info("End of reading file...")
+        print("End of reading file...")
     return rows

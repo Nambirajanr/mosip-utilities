@@ -6,16 +6,18 @@ import config as conf
 from utils.app_logger import info, error, debug
 
 class MosipSession:
-    def __init__(self, server, user, pwd, appid='resident', ssl_verify=True):
+    def __init__(self, server, user, pwd, logger_name, appid='resident', ssl_verify=True):
         self.server = server
         self.user = user
         self.pwd = pwd
         self.ssl_verify = conf.ssl_verify
-        self.token = self.authGetToken(appid, self.user, self.pwd)
+        self.logger_name = logger_name
+        self.token = self.authGetToken(appid, self.user, self.pwd, self.logger_name)
 
-    def authGetToken(self, appid, username, pwd):
-        myprint(f"authenticate api ({appid}) called")
+    def authGetToken(self, appid, username, pwd, logger_name):
+        info(logger_name, f"authenticate api ({appid}) called")
         url = '%s/v1/authmanager/authenticate/clientidsecretkey' % self.server
+        info(logger_name, f"url - {url}")
         ts = get_timestamp()
         j = {
             "id": "mosip.io.clientId.pwd",
@@ -30,7 +32,7 @@ class MosipSession:
         }
         r = requests.post(url, json=j, verify=self.ssl_verify)
         resp = parse_response(r)
-        debug("Response: "+ dict_to_json(resp))
+        debug(logger_name, "Response: "+ dict_to_json(resp))
         token = read_token(r)
         return token
     

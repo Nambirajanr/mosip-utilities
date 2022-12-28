@@ -9,6 +9,8 @@ requests = "*"
 psycopg2-binary = "*"
 argparse = "*"
 openpyxl = "*"
+urllib3 = "*"
+pandas = "*"
 
 [dev-packages]
 

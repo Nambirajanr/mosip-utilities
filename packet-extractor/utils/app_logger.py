@@ -21,8 +21,8 @@ def init_logger1(log_file):
     console_handler = logging.StreamHandler()
     root_logger.addHandler(console_handler)
 
-def init_logger(log_file, level=logging.INFO, mode='a', stdout=True):
-    logger = logging.getLogger()
+def init_logger(logger_name, log_file, level=logging.INFO, mode='a', stdout=True):
+    logger = logging.getLogger(logger_name)
     formatter = logging.Formatter('%(asctime)s %(levelname)s %(name)s - %(message)s')
     fileHandler = logging.FileHandler(log_file, mode=mode, encoding='utf-8')
     fileHandler.setFormatter(formatter)
@@ -34,20 +34,25 @@ def init_logger(log_file, level=logging.INFO, mode='a', stdout=True):
     if stdout:
         logger.addHandler(streamHandler) 
 
-def debug(msg):
-    logging.debug(pprint.pformat(msg, width=120))
+def debug(logger_name, msg):
+    logger = logging.getLogger(logger_name)
+    logger.debug(pprint.pformat(msg, width=120))
 
-def info(msg):
-    logging.info(pprint.pformat(msg, width=120))
+def info(logger_name, msg):
+    logger = logging.getLogger(logger_name)
+    logger.info(pprint.pformat(msg, width=120))
 
-def warning(msg):
-    logging.warn(pprint.pformat(msg, width=120))
+def warning(logger_name, msg):
+    logger = logging.getLogger(logger_name)
+    logger.warn(pprint.pformat(msg, width=120))
 
-def error(msg):
-    logging.error(pprint.pformat(msg, width=120))
+def error(logger_name, msg):
+    logger = logging.getLogger(logger_name)
+    logger.error(pprint.pformat(msg, width=120))
 
-def critical(msg):
-    logging.critical(pprint.pformat(msg, width=120))
+def critical(logger_name, msg):
+    logger = logging.getLogger(logger_name)
+    logger.critical(pprint.pformat(msg, width=120))
 
 def myprint(msg, head=None):
     if msg is None:

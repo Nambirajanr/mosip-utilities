@@ -30,3 +30,10 @@ input_folder_path = os.path.abspath(
 )
 
 source_path = os.path.join(input_folder_path, 'source_list.csv')
+
+def get_custom_logpath(file_name):
+    path = os.path.join(os.path.abspath(Path()), "output", file_name)
+    Path(path).mkdir(parents=True, exist_ok=True)
+    log_path = os.path.abspath(
+        os.path.join(path, file_name + '.log'))
+    return log_path
